@@ -22,8 +22,10 @@ features:
     details: 通过 JSON 或 CSV 文件批量下载数百个应用图标，适合设计素材整理和竞品分析。
   - title: 自建服务器
     details: 搭配 appicon-server，搭建私有图标库，团队共享设计资产。
-  - title: Claude Code 集成
+  - title: AI IDE 一键配置
+    details: 一条命令为 Claude Code、Cursor、Windsurf、Copilot、Kiro、Codex、Qoder 等配置 skill。
+  - title: Claude Code + Figma
     details: 结合 Claude Code 和 Figma MCP，用自然语言驱动图标搜索并直接插入 Figma 设计稿。
-  - title: 缓存加速
-    details: 内置搜索结果缓存，重复查询毫秒级响应，节省 API 调用。
 ---
+
+<HomeExtra />

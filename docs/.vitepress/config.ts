@@ -34,6 +34,7 @@ export default defineConfig({
               { text: 'info', link: '/guide/commands-info' },
               { text: 'batch', link: '/guide/commands-batch' },
               { text: 'config', link: '/guide/commands-config' },
+              { text: 'setup', link: '/guide/commands-setup' },
             ],
           },
           {
@@ -70,6 +71,7 @@ export default defineConfig({
               { text: 'info 详情', link: '/zh/guide/commands-info' },
               { text: 'batch 批量', link: '/zh/guide/commands-batch' },
               { text: 'config 配置', link: '/zh/guide/commands-config' },
+              { text: 'setup 安装', link: '/zh/guide/commands-setup' },
             ],
           },
           {

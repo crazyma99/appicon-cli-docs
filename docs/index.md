@@ -22,8 +22,10 @@ features:
     details: Feed a JSON or CSV file to download icons for dozens of apps in one command.
   - title: Custom API Server
     details: Deploy appicon-server to host your own icon library with upload, tagging, and a built-in Web UI.
+  - title: AI IDE Integration
+    details: One command to configure appicon as a skill in Claude Code, Cursor, Windsurf, Copilot, Kiro, Codex, Qoder, and more.
   - title: Claude Code + Figma
     details: Integrate with Claude Code and Figma MCP to go from app icon search to design file in seconds.
-  - title: JSON Output
-    details: Every command supports --json for easy scripting, piping, and CI/CD integration.
 ---
+
+<HomeExtra />
