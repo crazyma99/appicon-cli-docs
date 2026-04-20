@@ -25,7 +25,22 @@ const ides = [
 
 <template>
   <div class="home-extra">
-    <!-- How it Works -->
+    <!-- 1. Supported AI IDEs -->
+    <section class="ide-section">
+      <h2 class="section-title">{{ isZh ? '支持的 AI 编码工具' : 'Supported AI Coding Tools' }}</h2>
+      <p class="ide-subtitle">
+        <code>appicon setup --all</code>
+        {{ isZh ? ' 一键配置所有平台' : ' — one command to configure all' }}
+      </p>
+      <div class="ide-grid">
+        <div v-for="ide in ides" :key="ide.name" class="ide-card">
+          <img :src="basePath + ide.icon" :alt="ide.name" class="ide-icon" loading="lazy" />
+          <span class="ide-name">{{ ide.name }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. How it Works -->
     <section class="how-section">
       <h2 class="section-title">{{ isZh ? '工作原理' : 'How it Works' }}</h2>
       <div class="flow">
@@ -61,7 +76,7 @@ const ides = [
       </div>
     </section>
 
-    <!-- Claude Code + Figma MCP Workflow -->
+    <!-- 3. Claude Code + Figma MCP Workflow -->
     <section class="workflow-section">
       <h2 class="section-title">{{ isZh ? 'Claude Code + Figma MCP 联动' : 'Claude Code + Figma MCP Workflow' }}</h2>
       <div class="workflow-diagram">
@@ -83,21 +98,6 @@ const ides = [
           <div class="box-content">
             <code>use_figma → {{ isZh ? '创建画板并填充图标' : 'Create frame & fill icons' }}</code>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Supported AI IDEs -->
-    <section class="ide-section">
-      <h2 class="section-title">{{ isZh ? '支持的 AI 编码工具' : 'Supported AI Coding Tools' }}</h2>
-      <p class="ide-subtitle">
-        <code>appicon setup --all</code>
-        {{ isZh ? ' 一键配置所有平台' : ' — one command to configure all' }}
-      </p>
-      <div class="ide-grid">
-        <div v-for="ide in ides" :key="ide.name" class="ide-card">
-          <img :src="basePath + ide.icon" :alt="ide.name" class="ide-icon" loading="lazy" />
-          <span class="ide-name">{{ ide.name }}</span>
         </div>
       </div>
     </section>
