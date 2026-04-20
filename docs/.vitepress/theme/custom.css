@@ -48,6 +48,16 @@
   border-radius: 4px;
 }
 
+/* Remove all dividers on home page */
+.VPHome hr,
+.VPHome .VPFeatures::before,
+.VPHome .VPFeature {
+  border: none !important;
+}
+.VPHome .VPFeatures {
+  border-top: none !important;
+}
+
 /* Hero title on home page */
 .VPHero .name {
   font-family: 'Source Serif 4', serif !important;
