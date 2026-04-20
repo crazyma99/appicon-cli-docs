@@ -419,6 +419,11 @@ const ides = [
   height: 32px;
 }
 
+/* SVGs are fill="black", invert to white in dark mode */
+.dark .ide-icon {
+  filter: invert(1);
+}
+
 .ide-name {
   font-size: 12px;
   font-weight: 500;
