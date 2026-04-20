@@ -1,3 +1,5 @@
+<AuthorCard />
+
 # 什么是 appicon-cli？
 
 `appicon-cli` 是一个命令行工具，用于从多个应用商店搜索和下载高清 APP 图标。

@@ -1,3 +1,5 @@
+<AuthorCard />
+
 # What is appicon-cli?
 
 **appicon-cli** is a command-line tool that lets you search, inspect, and download app icons from multiple sources:
