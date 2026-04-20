@@ -1,52 +1,13 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useData } from 'vitepress'
 
 const { lang } = useData()
 const isZh = ref(false)
 
-const commands = [
-  'appicon search "WeChat" --store apple',
-  'appicon download com.tencent.xin --size 512',
-  'appicon setup --all',
-  'appicon batch apps.json --output ./icons',
-]
-
-const displayText = ref('')
-const commandIndex = ref(0)
-const charIndex = ref(0)
-const isDeleting = ref(false)
-let timer = null
-
-function tick() {
-  const cmd = commands[commandIndex.value]
-  if (!isDeleting.value) {
-    displayText.value = cmd.slice(0, charIndex.value + 1)
-    charIndex.value++
-    if (charIndex.value >= cmd.length) {
-      setTimeout(() => { isDeleting.value = true; tick() }, 2000)
-      return
-    }
-    timer = setTimeout(tick, 50 + Math.random() * 40)
-  } else {
-    displayText.value = cmd.slice(0, charIndex.value)
-    charIndex.value--
-    if (charIndex.value < 0) {
-      isDeleting.value = false
-      charIndex.value = 0
-      commandIndex.value = (commandIndex.value + 1) % commands.length
-      timer = setTimeout(tick, 400)
-      return
-    }
-    timer = setTimeout(tick, 25)
-  }
-}
-
 onMounted(() => {
   isZh.value = lang.value?.startsWith('zh')
-  tick()
 })
-onUnmounted(() => { if (timer) clearTimeout(timer) })
 
 const basePath = import.meta.env.BASE_URL || '/appicon-cli-docs/'
 
@@ -64,23 +25,6 @@ const ides = [
 
 <template>
   <div class="home-extra">
-    <!-- Terminal Typewriter -->
-    <section class="terminal-section">
-      <div class="terminal">
-        <div class="terminal-header">
-          <span class="dot red"></span>
-          <span class="dot yellow"></span>
-          <span class="dot green"></span>
-          <span class="terminal-title">Terminal</span>
-        </div>
-        <div class="terminal-body">
-          <span class="prompt">$</span>
-          <span class="command">{{ displayText }}</span>
-          <span class="cursor-blink">▌</span>
-        </div>
-      </div>
-    </section>
-
     <!-- How it Works -->
     <section class="how-section">
       <h2 class="section-title">{{ isZh ? '工作原理' : 'How it Works' }}</h2>
@@ -174,78 +118,6 @@ const ides = [
   text-align: center;
   margin-bottom: 40px;
   letter-spacing: -0.02em;
-}
-
-/* Terminal — below hero buttons */
-.terminal-section {
-  margin: 32px 0 80px;
-}
-
-.terminal {
-  max-width: 640px;
-  margin: 0 auto;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
-}
-
-/* Dark mode terminal */
-.dark .terminal {
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-}
-:root:not(.dark) .terminal {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-}
-
-.terminal-header {
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.dark .terminal-header { background: #1a1a1f; }
-:root:not(.dark) .terminal-header { background: #e8e8ec; }
-
-.dot { width: 12px; height: 12px; border-radius: 50%; }
-.dot.red { background: #ff5f57; }
-.dot.yellow { background: #ffbd2e; }
-.dot.green { background: #28ca42; }
-
-.terminal-title {
-  flex: 1;
-  text-align: center;
-  font-size: 12px;
-  font-family: 'JetBrains Mono', monospace;
-}
-.dark .terminal-title { color: #707078; }
-:root:not(.dark) .terminal-title { color: #8e8e93; }
-
-.terminal-body {
-  padding: 20px 24px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 15px;
-  line-height: 1.6;
-  min-height: 56px;
-}
-.dark .terminal-body { background: #0a0a0c; }
-:root:not(.dark) .terminal-body { background: #1e1e2e; }
-
-.prompt {
-  color: #22c55e;
-  margin-right: 8px;
-}
-
-.command {
-  color: #f0f0f2;
-}
-
-.cursor-blink {
-  color: var(--vp-c-brand-1);
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
 }
 
 /* How it Works — equal height cards */
