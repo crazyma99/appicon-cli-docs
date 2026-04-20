@@ -63,7 +63,7 @@ onUnmounted(() => { if (timer) clearTimeout(timer) })
 <style scoped>
 .hero-terminal-wrapper {
   max-width: 640px;
-  margin: 24px auto 0;
+  margin: 24px auto 64px;
   padding: 0 24px;
 }
 
