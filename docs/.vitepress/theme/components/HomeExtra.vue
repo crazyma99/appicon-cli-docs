@@ -48,15 +48,17 @@ onMounted(() => {
 })
 onUnmounted(() => { if (timer) clearTimeout(timer) })
 
+const basePath = import.meta.env.BASE_URL || '/appicon-cli-docs/'
+
 const ides = [
-  { name: 'Claude Code', icon: 'https://cdn.simpleicons.org/anthropic/f0f0f2' },
-  { name: 'Cursor', icon: 'https://cdn.simpleicons.org/cursor/f0f0f2' },
-  { name: 'Windsurf', icon: 'https://cdn.simpleicons.org/codeium/f0f0f2' },
-  { name: 'GitHub Copilot', icon: 'https://cdn.simpleicons.org/githubcopilot/f0f0f2' },
-  { name: 'Kiro', icon: 'https://cdn.simpleicons.org/amazonwebservices/f0f0f2' },
-  { name: 'Codex', icon: 'https://cdn.simpleicons.org/openai/f0f0f2' },
-  { name: 'Qoder', icon: 'https://cdn.simpleicons.org/qwiklabs/f0f0f2' },
-  { name: 'Antigravity', icon: 'https://cdn.simpleicons.org/rocket/f0f0f2' },
+  { name: 'Claude Code', icon: 'icons/claude.svg' },
+  { name: 'Cursor', icon: 'icons/cursor.svg' },
+  { name: 'Windsurf', icon: 'icons/windsurf.svg' },
+  { name: 'GitHub Copilot', icon: 'icons/github-copilot.svg' },
+  { name: 'Kiro', icon: 'icons/kiro.svg' },
+  { name: 'Codex', icon: 'icons/codex.svg' },
+  { name: 'Qoder', icon: 'icons/qoder.svg' },
+  { name: 'Antigravity', icon: 'icons/antigravity.svg' },
 ]
 </script>
 
@@ -74,7 +76,7 @@ const ides = [
         <div class="terminal-body">
           <span class="prompt">$</span>
           <span class="command">{{ displayText }}</span>
-          <span class="cursor">▌</span>
+          <span class="cursor-blink">▌</span>
         </div>
       </div>
     </section>
@@ -98,7 +100,7 @@ const ides = [
           <div class="step-icon">⬇️</div>
           <div class="step-title">{{ isZh ? '下载' : 'Download' }}</div>
           <div class="step-desc">
-            <code>appicon download com.tencent.xin --size 512</code>
+            <code>appicon download com.tencent.xin</code>
             <p>{{ isZh ? '多尺寸 PNG/JPG/WebP，Sharp 自动缩放' : 'Multi-size PNG/JPG/WebP, Sharp auto-resize' }}</p>
           </div>
         </div>
@@ -150,7 +152,7 @@ const ides = [
       </p>
       <div class="ide-grid">
         <div v-for="ide in ides" :key="ide.name" class="ide-card">
-          <img :src="ide.icon" :alt="ide.name" class="ide-icon" loading="lazy" />
+          <img :src="basePath + ide.icon" :alt="ide.name" class="ide-icon" loading="lazy" />
           <span class="ide-name">{{ ide.name }}</span>
         </div>
       </div>
@@ -174,9 +176,9 @@ const ides = [
   letter-spacing: -0.02em;
 }
 
-/* Terminal */
+/* Terminal — below hero buttons */
 .terminal-section {
-  margin: 60px 0 80px;
+  margin: 32px 0 80px;
 }
 
 .terminal {
@@ -184,23 +186,27 @@ const ides = [
   margin: 0 auto;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--vp-c-divider);
 }
 
+/* Dark mode terminal */
+.dark .terminal {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+:root:not(.dark) .terminal {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
 .terminal-header {
-  background: #1a1a1f;
   padding: 12px 16px;
   display: flex;
   align-items: center;
   gap: 8px;
 }
+.dark .terminal-header { background: #1a1a1f; }
+:root:not(.dark) .terminal-header { background: #e8e8ec; }
 
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
+.dot { width: 12px; height: 12px; border-radius: 50%; }
 .dot.red { background: #ff5f57; }
 .dot.yellow { background: #ffbd2e; }
 .dot.green { background: #28ca42; }
@@ -209,18 +215,20 @@ const ides = [
   flex: 1;
   text-align: center;
   font-size: 12px;
-  color: #707078;
   font-family: 'JetBrains Mono', monospace;
 }
+.dark .terminal-title { color: #707078; }
+:root:not(.dark) .terminal-title { color: #8e8e93; }
 
 .terminal-body {
-  background: #0a0a0c;
   padding: 20px 24px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 15px;
   line-height: 1.6;
   min-height: 56px;
 }
+.dark .terminal-body { background: #0a0a0c; }
+:root:not(.dark) .terminal-body { background: #1e1e2e; }
 
 .prompt {
   color: #22c55e;
@@ -231,7 +239,7 @@ const ides = [
   color: #f0f0f2;
 }
 
-.cursor {
+.cursor-blink {
   color: var(--vp-c-brand-1);
   animation: blink 1s step-end infinite;
 }
@@ -240,14 +248,14 @@ const ides = [
   50% { opacity: 0; }
 }
 
-/* How it Works */
+/* How it Works — equal height cards */
 .how-section {
   margin: 80px 0;
 }
 
 .flow {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   gap: 16px;
 }
@@ -261,6 +269,8 @@ const ides = [
   padding: 24px;
   text-align: center;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .step-num {
@@ -279,15 +289,14 @@ const ides = [
   justify-content: center;
 }
 
-.step-icon {
-  font-size: 32px;
-  margin-bottom: 8px;
-}
+.step-icon { font-size: 32px; margin-bottom: 8px; }
+.step-title { font-weight: 600; font-size: 16px; margin-bottom: 8px; }
 
-.step-title {
-  font-weight: 600;
-  font-size: 16px;
-  margin-bottom: 8px;
+.step-desc {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .step-desc code {
@@ -310,14 +319,13 @@ const ides = [
 .flow-arrow {
   font-size: 24px;
   color: var(--vp-c-text-3);
-  margin-top: 60px;
+  display: flex;
+  align-items: center;
   flex-shrink: 0;
 }
 
 /* Workflow Diagram */
-.workflow-section {
-  margin: 80px 0;
-}
+.workflow-section { margin: 80px 0; }
 
 .workflow-diagram {
   max-width: 520px;
@@ -350,11 +358,7 @@ const ides = [
   font-family: 'JetBrains Mono', monospace;
 }
 
-.box-content {
-  font-size: 14px;
-  line-height: 1.7;
-}
-
+.box-content { font-size: 14px; line-height: 1.7; }
 .box-content code {
   font-size: 12px;
   background: var(--vp-c-bg-alt);
@@ -369,9 +373,7 @@ const ides = [
 }
 
 /* AI IDEs */
-.ide-section {
-  margin: 80px 0;
-}
+.ide-section { margin: 80px 0; }
 
 .ide-subtitle {
   text-align: center;
@@ -415,11 +417,6 @@ const ides = [
 .ide-icon {
   width: 32px;
   height: 32px;
-  opacity: 0.8;
-}
-
-:root:not(.dark) .ide-icon {
-  filter: invert(1);
 }
 
 .ide-name {
